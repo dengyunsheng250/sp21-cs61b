@@ -4,6 +4,7 @@
 public class Collatz {
 
     /** Buggy implementation of nextNumber!
+     * @param  n
      * @resource
      * */
     public static int nextNumber(int n) {
