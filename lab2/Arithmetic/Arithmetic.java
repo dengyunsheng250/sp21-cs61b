@@ -23,3 +23,8 @@ public class Arithmetic {
         return a * b;
     }
 }
+
+// Lab2 Junit tests and Debugging
+/**
+ * i will do this lab
+ */
