@@ -19,7 +19,6 @@ public class TimeAList {
     }
 
     public static void main(String[] args) {
-
         timeAListConstruction();
     }
 
