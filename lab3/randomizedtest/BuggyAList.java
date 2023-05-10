@@ -27,7 +27,7 @@ public class BuggyAList<Item> {
     /** Resizes the underlying array to the target capacity. */
     private void resize(int capacity) {
         Item[] a = (Item[]) new Object[capacity];
-        for (int i = 0; i < size; i += 1) {
+        for (int i = 0; i < items.length && items[i] != null; i += 1) {
             a[i] = items[i];
         }
         items = a;
@@ -59,8 +59,8 @@ public class BuggyAList<Item> {
     /** Deletes item from back of the list and
       * returns deleted item. */
     public Item removeLast() {
-        if ((size < items.length / 4) && (size > 4)) {
-            resize(size / 4);
+        if (size * 4 < items.length) {
+            resize(items.length / 4);
         }
         Item x = getLast();
         items[size - 1] = null;
