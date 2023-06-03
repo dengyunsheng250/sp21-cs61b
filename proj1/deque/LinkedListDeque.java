@@ -1,6 +1,5 @@
 package deque;
 
-import net.sf.saxon.om.Item;
 
 import java.util.Iterator;
 
