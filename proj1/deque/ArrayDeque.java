@@ -21,7 +21,7 @@ public class ArrayDeque<T> {
     }
     public void addFirst(T item){
         if(size * 2 >= items.length){
-            resize((int)(size * 1.2));
+            resize((int)(size * 4));
         }
         items[first] = item;
         first = (first - 1 + items.length) % items.length;
@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
     }
     public void addLast(T item){
         if(size * 2 >= items.length){
-            resize((int)(size * 1.2));
+            resize((int)(size * 4));
         }
         items[last] = item;
         last = (last + 1) % items.length;
@@ -52,7 +52,7 @@ public class ArrayDeque<T> {
         items[(first + 1) % items.length] = null;
         first = (first + 1) % items.length;
         size--;
-        if(size * 3 <= items.length) resize((int)(size * 0.8));
+        if(size != 0 && size * 3 <= items.length) resize((int)(size * 2));
         return item;
     }
     public T removeLast(){
@@ -61,7 +61,7 @@ public class ArrayDeque<T> {
         items[(last - 1 + items.length) % items.length] = null;
         last = (last - 1 + items.length) % items.length;
         size--;
-        if(size * 3 <= items.length) resize((int)(size * 0.8));
+        if(size != 0 && size * 3 <= items.length) resize((int)(size * 2));
         return item;
     }
     public T get(int index){
@@ -102,12 +102,13 @@ public class ArrayDeque<T> {
     }
     private void resize(int n){
         T[] news = (T[])new Object[n];
-        int j = 0, k = items.length - 1;
-        for(int i = 0;items[i] != null;i++,j++) news[i] = items[i];
-        for(int i = items.length - 1;items[i] != null;i--,k--) news[i] = items[i];
-        size = n;
+        for(int i = 0;items[i] != null;i++) news[i] = items[i];
+        for(int i = items.length - 1,j = news.length - 1;items[i] != null;i--,j--) news[j] = items[i];
         items = news;
-        last = j;
+        int j = 0, k = items.length - 1;
+        for(int i = 0;items[i] != null;i++,j++);
+        for(int i = items.length - 1;items[i] != null;i--,k--);
         first = k;
+        last = j;
     }
 }
