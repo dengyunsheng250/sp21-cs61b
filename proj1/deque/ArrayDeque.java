@@ -58,16 +58,13 @@ public class ArrayDeque<T> {
     public T removeLast(){
         if(isEmpty()) return null;
         T item = items[(last - 1 + items.length) % items.length];
-        items[(last - 1 + items.length) % items.length] = null;
-        last = (last - 1 + items.length) % items.length;
+        items[((last - 1) % items.length + items.length) % items.length] = null;
+        last = ((last - 1) % items.length + items.length) % items.length;
         size--;
         //if(size != 0 && size * 4 <= items.length) resize((int)(size * 3));
         return item;
     }
     public T get(int index){
-        if(first + 1 == last){
-            return null;
-        }
         return items[(first + index + 1) % items.length];
     }
     public Iterator<T> iterator(){
@@ -76,13 +73,13 @@ public class ArrayDeque<T> {
             private int l = last;
             @Override
             public boolean hasNext() {
-                return (first + 1) % items.length !=  last;
+                return (f + 1) % items.length !=  l;
             }
 
             @Override
             public T next() {
-                first = (first + 1) % items.length;
-                return items[first];
+                f = (f + 1) % items.length;
+                return items[f];
             }
         };
     }
