@@ -21,7 +21,7 @@ public class ArrayDeque<T> {
     }
     public void addFirst(T item){
         if(size * 2 >= items.length){
-            resize((int)(size * 4));
+            //resize((int)(size * 2.2));
         }
         items[first] = item;
         first = (first - 1 + items.length) % items.length;
@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
     }
     public void addLast(T item){
         if(size * 2 >= items.length){
-            resize((int)(size * 4));
+            //resize((int)(size * 2.2));
         }
         items[last] = item;
         last = (last + 1) % items.length;
@@ -52,7 +52,7 @@ public class ArrayDeque<T> {
         items[(first + 1) % items.length] = null;
         first = (first + 1) % items.length;
         size--;
-        if(size != 0 && size * 3 <= items.length) resize((int)(size * 2));
+        //if(size != 0 && size * 4 <= items.length) resize((int)(size * 3));
         return item;
     }
     public T removeLast(){
@@ -61,7 +61,7 @@ public class ArrayDeque<T> {
         items[(last - 1 + items.length) % items.length] = null;
         last = (last - 1 + items.length) % items.length;
         size--;
-        if(size != 0 && size * 3 <= items.length) resize((int)(size * 2));
+        //if(size != 0 && size * 4 <= items.length) resize((int)(size * 3));
         return item;
     }
     public T get(int index){
@@ -76,7 +76,7 @@ public class ArrayDeque<T> {
             private int l = last;
             @Override
             public boolean hasNext() {
-                return first + 1 !=  last;
+                return (first + 1) % items.length !=  last;
             }
 
             @Override

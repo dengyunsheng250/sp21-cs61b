@@ -1,7 +1,8 @@
 package deque;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class ArrayDequeTest {
     @Test
@@ -14,5 +15,20 @@ public class ArrayDequeTest {
         q.removeLast();
         q.removeLast();
         assertTrue(q.size() == 0);
+    }
+    @Test
+    public void testArrayList(){
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        for(int i = 0;i < 10;i++){
+            int op = StdRandom.uniform(0,2);
+            if (op == 0){
+                q.addFirst(i);
+            }else if(op == 1){
+                q.addLast(i);
+            }
+        }
+        for(int i = 0;i < 10;i++){
+            System.out.println(q.get(i));
+        }
     }
 }

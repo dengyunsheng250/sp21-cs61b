@@ -42,16 +42,16 @@ public class LinkedListDeque<T>{
     }
     public Iterator<T> iterator(){
         return new Iterator<T>() {
-            Node node = head.next;
+            Node node = head;
             @Override
             public boolean hasNext() {
-                return node != tail;
+                return node.next != tail;
             }
 
             @Override
             public T next() {
-                T item = node.item;
                 node = node.next;
+                T item = node.item;
                 return item;
             }
         };
