@@ -20,15 +20,14 @@ public class ArrayDequeTest {
     public void testArrayList(){
         ArrayDeque<Integer> q = new ArrayDeque<>();
         for(int i = 0;i < 10;i++){
-            int op = StdRandom.uniform(0,2);
+            int op = StdRandom.uniform(0,3);
             if (op == 0){
                 q.addFirst(i);
             }else if(op == 1){
-                q.addLast(i);
+                q.removeFirst();
+            }else{
+                System.out.println(q.get(0));
             }
-        }
-        for(int i = 0;i < 10;i++){
-            System.out.println(q.get(i));
         }
     }
 }
