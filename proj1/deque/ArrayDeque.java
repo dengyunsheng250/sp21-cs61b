@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     private int size;
     private T[] items;
     private int first;
@@ -16,31 +16,34 @@ public class ArrayDeque<T> {
     public int size(){
         return size;
     }
-    public boolean isEmpty(){
-        return size() == 0;
-    }
     public void addFirst(T item){
-        if(size * 2 >= items.length){
-            resize((int)(size * 2.2));
-        }
         items[first] = item;
         first = (first - 1 + items.length) % items.length;
         size++;
-    }
-    public void addLast(T item){
         if(size * 2 >= items.length){
             resize((int)(size * 2.2));
         }
+    }
+    public void addLast(T item){
         items[last] = item;
         last = (last + 1) % items.length;
         size++;
+        if(size * 2 >= items.length){
+            resize((int)(size * 2.2));
+        }
     }
     public void printDeque(){
-        if(!(first == last)){
+        if(isEmpty()) return;
+        if(first > last){
             for(int i = first + 1;i < items.length;i++){
                 System.out.print(items[i] + " ");
             }
             for(int i = 0;i < last;i++){
+                System.out.print(items[i] + " ");
+            }
+        }
+        else{
+            for(int i = first + 1;i < last;i++){
                 System.out.print(items[i] + " ");
             }
         }
@@ -55,6 +58,7 @@ public class ArrayDeque<T> {
         if(size != 0 && size * 8 <= items.length) resize((int)(size * 3));
         return item;
     }
+    @Override
     public T removeLast(){
         if(isEmpty()) return null;
         T item = items[(last - 1 + items.length) % items.length];
@@ -99,13 +103,23 @@ public class ArrayDeque<T> {
     }
     private void resize(int n){
         T[] news = (T[])new Object[n];
-        for(int i = 0;items[i] != null;i++) news[i] = items[i];
-        for(int i = items.length - 1,j = news.length - 1;items[i] != null;i--,j--) news[j] = items[i];
+        int j = 0;
+        for(int i = first + 1;i < items.length;i++){
+            if(items[i] != null){
+                news[j] = items[i];
+                items[i] = null;
+                j++;
+            }
+        }
+        for(int i = 0;i < last;i++){
+            if(items[i] != null){
+                news[j] = items[i];
+                items[i] = null;
+                j++;
+            }
+        }
+        first = news.length - 1;
+        last = j;
         items = news;
-        last = 1;
-        first = 0;
-        for(;items[first] != null;first = (first - 1 + items.length) % items.length);
-        for(;items[last] != null;last = (last + 1) % items.length);
-
     }
 }
